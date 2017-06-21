@@ -8,3 +8,6 @@ Instructions:
 2. change the path of caffe_path in preprocessing/_init_paths.py
 3. run the command file: ./run.sh
 4. final result is valid_prediction.pkl
+
+Notes:
+- Please detect face region manually on the first frame if the face detection tool can not detect the face. It has pop up window; using left click and drag to select face region then right click to confirm

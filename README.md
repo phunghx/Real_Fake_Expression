@@ -14,10 +14,12 @@ HCI Lab, Sejong University, Korea </br>
 5. Xgboost https://github.com/dmlc/xgboost
 6. cunn library for torch
 </br>
+
 * Instructions:
 1. Copy testing videos into folder data/test
 2. run the command file: ./run.sh
 4. final result is valid_prediction.pkl
+
 </br>
 Notes:
 - Please detect face region manually on the first frame if the face detection tool can not detect the face. It has pop up window; left mouse click on the face region then right click to confirm.

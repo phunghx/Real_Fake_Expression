@@ -1,6 +1,10 @@
 #This is the source code for Chalearn LAP Real Versus Fake Expressed Emotion Challenge @ICCV 2017 </br>
 Author: Huynh Xuan Phung </br>
 Email: phunghx <at> gmail <dot> com </br>
+
+Title: Mirror neuron for Real versus Fake emotion recognition
+Author: Xuan-Phung Huynh
+HCI Lab, Sejong University, Korea
 * Dependency libraries:
 1. Torch 7: http://torch.ch/docs/getting-started.html
 2. Python 2.4
@@ -16,3 +20,10 @@ Email: phunghx <at> gmail <dot> com </br>
 
 Notes:
 - Please detect face region manually on the first frame if the face detection tool can not detect the face. It has pop up window; left mouse click on the face region then right click to confirm.
+
+=======================================================
+Training
+
+
+
+

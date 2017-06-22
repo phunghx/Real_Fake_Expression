@@ -3,8 +3,8 @@ import os
 import sys
 from string import Template
 from mosse import *
-import random
-random.seed(1)
+#import random
+#random.seed(2)
 
 # first argument is the haarcascades path
 #face_cascade_path = sys.argv[1]
@@ -24,10 +24,10 @@ def make_sure_path_exists(path):
     except OSError as exception:
         if exception.errno != errno.EEXIST:
             raise
-#detector = dlib.get_frontal_face_detector()
+detector = dlib.get_frontal_face_detector()
 import glob
 errorfiles = []
-#win = dlib.image_window()
+win = dlib.image_window()
 def saveShape(shape,filename,size):
 	data = []
 	for i in range(68):
@@ -46,11 +46,13 @@ for videofile in videofiles:
 	
 	for imgfile in imgfiles:
 	        filesave = imgfile.split('/')[-1][:-4]
-		image = io.imread(imgfile)
-		#win.clear_overlay()
-		#win.set_image(image)
+		image = cv2.imread(imgfile)
+		win.clear_overlay()
+		win.set_image(image)
 	   	d = dlib.rectangle(0,0,image.shape[0],image.shape[1])
 	   	shape = predictor(image, d)
-	        #win.add_overlay(shape)
+		#if videofile == "0020166400_ANGER" and filesave=="0002":
+		#	import pdb;pdb.set_trace()
+	        win.add_overlay(shape)
 		saveShape(shape,folderdata + filesave,[image.shape[0],image.shape[1]])
 	   	#dlib.hit_enter_to_continue()

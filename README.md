@@ -2,12 +2,28 @@
 Author: Huynh Xuan Phung </br>
 Email: phunghx <at> gmail <dot> com </br>
 
-Instructions:
+Title: Mirror neuron for Real versus Fake emotion recognition
+Author: Xuan-Phung Huynh
+HCI Lab, Sejong University, Korea
+* Dependency libraries:
+1. Torch 7: http://torch.ch/docs/getting-started.html
+2. Python 2.4
+3. OpenCV 2.4.9
+4. dlib for python
+5. Xgboost https://github.com/dmlc/xgboost
+6. cunn library for torch
+
+* Instructions:
 1. Copy videos into folder data/test
-2. setup the latest caffe library and build for python: make pycaffe
-2. change the path of caffe_path in preprocessing/_init_paths.py
-3. run the command file: ./run.sh
+2. run the command file: ./run.sh
 4. final result is valid_prediction.pkl
 
 Notes:
-- Please detect face region manually on the first frame if the face detection tool can not detect the face. It has pop up window; using left click and drag to select face region then right click to confirm
+- Please detect face region manually on the first frame if the face detection tool can not detect the face. It has pop up window; left mouse click on the face region then right click to confirm.
+
+=======================================================
+Training
+
+
+
+

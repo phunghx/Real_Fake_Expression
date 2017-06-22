@@ -6,6 +6,7 @@ Title: Mirror neuron for Real versus Fake emotion recognition </br>
 Author: Xuan-Phung Huynh </br>
 HCI Lab, Sejong University, Korea </br>
 * Dependency libraries: 
+0. Ubuntu 16.04
 1. Torch 7: http://torch.ch/docs/getting-started.html
 2. Python 2.4
 3. OpenCV 2.4.9
@@ -14,7 +15,7 @@ HCI Lab, Sejong University, Korea </br>
 6. cunn library for torch
 </br>
 * Instructions:
-1. Copy videos into folder data/test
+1. Copy testing videos into folder data/test
 2. run the command file: ./run.sh
 4. final result is valid_prediction.pkl
 </br>
@@ -24,8 +25,10 @@ Notes:
 =======================================================
 </br>
 Training
-1. Download training data from link https://drive.google.com/open?id=0B9dYHyzro_Q_d1hUamJGNndxSGM; extract data to a folder 
-2. run training via command : ./training.sh /<train dataset folder/>
+1. Download training data from link https://drive.google.com/open?id=0B9dYHyzro_Q_d1hUamJGNndxSGM; extract data to a folder, for example /tmp/data/RealFake_trainset
+2. run training via command : ./training.sh /tmp/data/RealFake_trainset
+
+</br>
 
 
 

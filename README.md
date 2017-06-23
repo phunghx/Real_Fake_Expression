@@ -2,7 +2,7 @@
 Author: Huynh Xuan Phung </br>
 Email: phunghx <at> gmail <dot> com </br>
 </br>
-Title: Mirror neuron for Real versus Fake emotion recognition </br>
+Title: Mirror neuron for Real versus Fake emotion recognition based on the movement of facial landmarks </br>
 Author: Xuan-Phung Huynh </br>
 HCI Lab, Sejong University, Korea </br>
 * Dependency libraries: 

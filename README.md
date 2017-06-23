@@ -31,7 +31,7 @@ Notes:
 Training
 1. Download training data from link https://drive.google.com/open?id=0B9dYHyzro_Q_d1hUamJGNndxSGM; extract data to a folder, for example /tmp/data/RealFake_trainset
 2. run training via command : ./training.sh /tmp/data/RealFake_trainset
-
+Note: training data is facial landmark point of training videos
 </br>
 Our paper in progression
 

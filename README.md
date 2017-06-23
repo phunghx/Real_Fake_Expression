@@ -33,7 +33,7 @@ Training
 2. run training via command : ./training.sh /tmp/data/RealFake_trainset
 
 </br>
-
+Our paper in progression
 
 
 

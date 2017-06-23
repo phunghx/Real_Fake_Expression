@@ -13,6 +13,7 @@ HCI Lab, Sejong University, Korea </br>
 4. dlib for python
 5. Xgboost https://github.com/dmlc/xgboost
 6. cunn library for torch
+7. npy4th https://github.com/htwaijry/npy4th
 </br>
 
 * Instructions:

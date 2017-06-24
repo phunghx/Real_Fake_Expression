@@ -3,7 +3,7 @@ import numpy as np
 import os
 import pickle
 import sys
-sys.path.append('/data4/xgboost/python-package')
+#sys.path.append('/data4/xgboost/python-package')
 from xgboost import XGBClassifier
 
 facials = ['anger','contentment','disgust','happy','sadness','surprise']
@@ -26,6 +26,6 @@ for facial in facials:
 		if pred_f[i] == 0: result[pred_files[i]] = 'true'
 		else:	result[pred_files[i]] = 'fake'
 
-pickle.dump(result, open("valid_prediction.pkl","wb"))
+pickle.dump(result, open("test_prediction.pkl","wb"))
 
 

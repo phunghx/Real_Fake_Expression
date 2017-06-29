@@ -106,7 +106,7 @@ local function sampleData(class,subject)
 	data_full[j-1][1]:copy(shape)
    end 
    --]]
-   myLib.faceLandmark(torch.data(data_full), ffi.string(opt.data .. '/' .. subject .. '/' .. classTrain[class] .. '/*.jpg'),ffi.string("/data5/Real_Fake_Emotion/Real_Fake_Expression/libs/dlib-19.4/shape_predictor_68_face_landmarks.dat"),true)
+   myLib.faceLandmark(torch.data(data_full), ffi.string(opt.data .. '/' .. subject .. '/' .. classTrain[class] .. '/*.jpg'),ffi.string("../shape_predictor_68_face_landmarks.dat"),true)
    return sampleHookTrain(data_full[{{2,data_full:size(1)}}])
 end
 iterations = 80

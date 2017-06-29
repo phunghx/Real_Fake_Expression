@@ -18,7 +18,20 @@ def make_sure_path_exists(path):
             raise
 
 import glob
-videofiles = glob.glob('../data/test/*.mp4')
+
+
+
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--video_folder", required=True,
+	help="path to video folder")
+ap.add_argument("-s", "--save",  required=True,
+	help="path of face images to save")
+args = vars(ap.parse_args())
+
+
+videofiles = glob.glob( args["video_folder"] + '/*.mp4')
 
 rect = (0,0,1,1)
 rectangle = False
@@ -78,7 +91,7 @@ for videofile in videofiles:
 	#for infname in sys.argv[2:]:
 	video_capture = cv2.VideoCapture(videofile)
         filesave = videofile.split('/')[-1][:-4]
-        folderdata = '../data/testImage_v1/' + filesave
+        folderdata = args["save"] +' /' + filesave
 	make_sure_path_exists(folderdata)
 
 	first = True
@@ -94,7 +107,7 @@ for videofile in videofiles:
 		   	minSize = min_size, flags = flags)
 
 		   first = False
-		   if len(boundingboxes) != 1:
+		   if len(boundingboxes) <=0:
 			sceneImg = np.copy(img)
 			cv2.namedWindow('mouse input')
 			cv2.setMouseCallback('mouse input',onmouse)
@@ -111,9 +124,20 @@ for videofile in videofiles:
 				#        cv2.destroyWindow('mouse input')
 			faces = [boundingboxes[chooseindex]]	
 		   
-		   else:
+		   elif len(boundingboxes)==1:
 			faces = [[boundingboxes[0][0],boundingboxes[0][1],boundingboxes[0][2],boundingboxes[0][3]]]
-		   ( x, y, w, h ) = faces[0]
+		   else:
+			selectIndex = 0
+			yS = boundingboxes[0][1]
+			for jj in range(1,len(boundingboxes)):
+				if yS < boundingboxes[jj][1]:
+					yS = boundingboxes[jj][1]
+					selectIndex = jj
+
+			faces = [[boundingboxes[selectIndex][0],boundingboxes[selectIndex][1],boundingboxes[selectIndex][2],boundingboxes[selectIndex][3]]]
+
+
+		   (x, y, w, h ) = faces[0]
 		   #x,y,w,h = int(x),int(y),int(w),int(h)
 	     	   cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 1)
 		   x1,y1,x2,y2 = x, y, x + w, y + h
@@ -123,13 +147,13 @@ for videofile in videofiles:
 	   else :
 	   	tracker.update(cv2.cvtColor(image, cv2.COLOR_BGR2GRAY))
 	   	(x1,y1,x2,y2) = tracker.draw_state(image)
-	   cv2.imshow('Video', image)
+	   #cv2.imshow('Video', image)
 	   cv2.imwrite(folderdata + '/%04d.jpg' % count, img[y1:y2,x1:x2,:])
 	   #outstr = (folderdata + '/%04d.jpg' % count) + " " + str(x1) + " " + str(y1) + " " + str(x2-x1) + " " + str(y2-y1) + "\n"
 	   #metadata.write(outstr)
 	   count = count + 1
-	   if cv2.waitKey(1) & 0xFF == ord('q'):
-	   	break
+	   #if cv2.waitKey(1) & 0xFF == ord('q'):
+	   #	break
 	#metadata.close()   
 	video_capture.release()
 	#cv2.destroyAllWindows()

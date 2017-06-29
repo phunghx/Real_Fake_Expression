@@ -7,7 +7,7 @@ GridLSTM = paths.dofile('GridLSTM.lua')
 
 cmd = torch.CmdLine()
 cmd:option('-facial', 'anger', 'facial emotion')
-cmd:option('-data', 'data/RealFake_trainset', 'dataset path')
+cmd:option('-data', 'data/Train_v1', 'dataset path')
 opt = cmd:parse(arg or {})
 
 classes = {['anger']={'N2A','H2N2A'},
@@ -19,7 +19,7 @@ classes = {['anger']={'N2A','H2N2A'},
 
 classTrain = classes[opt.facial]
 
-print(opt.facial)
+print("======== Training on " .. opt.facial)
 
 paths.dofile('mirrorNeuron.lua')   
 
@@ -30,7 +30,7 @@ PB = torch.FloatTensor(2,64):fill(0):cuda()
 criterion = nn.MSECriterion():cuda()
 collectgarbage()
 paths.dofile('training.lua')
-nEpochs=1
+nEpochs=100
 epoch = 1
 for i=1,nEpochs do
 	train()

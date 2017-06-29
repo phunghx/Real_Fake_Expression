@@ -1,5 +1,34 @@
 npy4th = require 'npy4th'
 local optim = require 'optim'
+local dbg = require("debugger")
+
+
+local Threads = require 'threads'
+Threads.serialization('threads.sharedserialize')
+local options = opt
+local opClassTrain = classTrain
+donkeys = Threads(
+         2,
+         function()
+            require 'torch'
+         end,
+         function(idx)
+            opt = options
+	    classTrain = opClassTrain
+            tid = idx
+            local seed = 1 + idx
+            torch.manualSeed(seed)
+            print(string.format('Starting donkey with id: %d seed: %d', tid, seed))
+            ffi = require("ffi")
+	    -- Load myLib
+	    myLib = ffi.load(paths.cwd() .. '/liblandmark_detector.so')
+	    -- Function prototypes definition
+	    ffi.cdef [[
+		   int faceLandmark(float* keyPoints, const char* folder,const char* shape_detector, bool training);
+	    ]]
+         end
+      );
+
 optimStateIn2H = {
          learningRate = 0.01,
          learningRateDecay = 0.0,
@@ -18,7 +47,7 @@ local prev_loss = 10000
 local off_epoch = 0
 local stop_epoch = 0
 
-function sampleHookTrain(input)
+local function sampleHookTrain(input)
    collectgarbage()
    --local input, label = loadImage(path)
    --binary
@@ -36,6 +65,15 @@ function sampleHookTrain(input)
 	out[{{},1,i+#point}] = (input[{{},1,combine[i][1]}] + input[{{},1,combine[i][2]}]) / 2
 	out[{{},1,i+#point+output_size}] = (input[{{},1,combine[i][1]+input_size}] + input[{{},1,combine[i][2]+input_size}]) / 2
    end
+   --local noise = torch.FloatTensor(1,2*output_size):normal(0,0.01)
+   --if torch.uniform() > 0.5 then
+	--   out[{{},1,{1,output_size}}]:add(x)
+	--   out[{{},1,{output_size+1,2*output_size}}]:add(y)
+	--for i=1,out:size(1) do
+--		out[i]:add(noise)
+--	end
+ --  end
+
    out:mul(2):add(-1)
    return out
 
@@ -51,7 +89,7 @@ function clone_list(tensor_list, zero_too)
     return out
 end
 
-function sampleData(class,subject)
+local function sampleData(class,subject)
    local dataTable = {}
    local scalarTable = {}
    i = class
@@ -59,16 +97,19 @@ function sampleData(class,subject)
    for file in paths.iterfiles(opt.data .. '/' .. subject .. '/' .. classTrain[class]) do
 	maxlength = maxlength + 1
    end
-   local data_full = torch.FloatTensor(maxlength-1,1,68*2)
+   local data_full = torch.FloatTensor(maxlength,1,68*2)
+   --[[
    --if batchNumber==42 then dbg() end
 
    for j=2,maxlength do
 	local shape = npy4th.loadnpy(opt.data .. '/' .. subject .. '/' .. classTrain[class] .. string.format('/%04d.npy',j))
 	data_full[j-1][1]:copy(shape)
-   end   
-   return sampleHookTrain(data_full)
+   end 
+   --]]
+   myLib.faceLandmark(torch.data(data_full), ffi.string(opt.data .. '/' .. subject .. '/' .. classTrain[class] .. '/*.jpg'),ffi.string("/data5/Real_Fake_Emotion/Real_Fake_Expression/libs/dlib-19.4/shape_predictor_68_face_landmarks.dat"),true)
+   return sampleHookTrain(data_full[{{2,data_full:size(1)}}])
 end
-iterations = 2
+iterations = 80
 function train()
    print('==> doing epoch on training data:')
    print("==> online epoch # " .. epoch)
@@ -80,14 +121,19 @@ function train()
    loss_epoch = 0
    loss_f_epoch = 0
    for i=1,iterations do
+	donkeys:addjob(
+	   function()
 	    local class = math.max(1, math.ceil(torch.uniform() * 2))	
 	    local subject = math.max(1, math.ceil(torch.uniform() * 40))
             local inputs = sampleData(class,subject)
-            trainBatch(inputs,class)
+	    return inputs,class
+	   end,
+           trainBatch
+	)
    end
-
+   donkeys:synchronize()
    cutorch.synchronize()
-   loss_epoch = loss_epoch / 20
+   loss_epoch = loss_epoch / iterations
    trainLogger:add{
       ['avg loss (train set) ferr'] = loss_epoch
    }
@@ -98,10 +144,13 @@ function train()
    -- save model
    collectgarbage()
    model:clearState()
+   
+
    if loss_epoch < prev_loss then
 	   torch.save(paths.concat('../' .. opt.facial, 'model.t7'), model)
-	   torch.save(paths.concat('../' .. opt.facial, 'PB_.t7'), PB:float())
+           torch.save(paths.concat('../' .. opt.facial, 'PB_.t7'), PB:float())
 	   prev_loss = loss_epoch
+	   --[[
 	   stop_epoch = 0
 	   model:evaluate()
 	   for i=1,40 do
@@ -109,7 +158,8 @@ function train()
 			inputs = sampleData(class,i)
 			validBatch(inputs,class,i)
 		end
-	   end   
+	   end 
+	   -- ]]
    else	
 	print("Model is not good") 	
 	off_epoch = off_epoch + 1
@@ -266,9 +316,9 @@ function trainBatch(inputsCPU,class)
 
    batchNumber = batchNumber + 1
    loss_epoch = loss_epoch + ferr
-   print(('Epoch: [%d][%d/%d]\tTime %.3f  Ferr %.4f LR %.5f - %.5f DataLoadingTime %.3f'):format(
-          epoch, batchNumber, nEpochs, timer:time().real, ferr, 
-          optimStateIn2H.learningRate,PB_learningrate, dataLoadingTime))
+   --print(('Epoch: [%d][%d/%d]\tTime %.3f  Ferr %.4f LR %.5f - %.5f DataLoadingTime %.3f'):format(
+   --       epoch, batchNumber, nEpochs, timer:time().real, ferr, 
+   --      optimStateIn2H.learningRate,PB_learningrate, dataLoadingTime))
    
    dataTimer:reset()
 end

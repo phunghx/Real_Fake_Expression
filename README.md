@@ -26,7 +26,7 @@ HCI Lab, Sejong University, Korea </br>
 
 If you use our pre-trained models please follow these steps:
 1. Extract face regions from video
-	- copy all video into a folder, we set it at $REALFAKE/data/test. The name of video is followed the challenge dataset: &gt;id&gt;_&gt;facial&gt;.mp4. &gt;facial&gt; is one of
+	- copy all video into a folder, we set it at $REALFAKE/data/test. The name of video is followed the challenge dataset: &lt;id&gt;_&lt;facial&gt;.mp4. &lt;facial&gt; is one of ANGER,CONTENTMENT,DISGUST,HAPPINESS,SADNESS,SURPRISE.
 
 1. Copy testing videos into folder data/test
 2. run the command file: ./run.sh

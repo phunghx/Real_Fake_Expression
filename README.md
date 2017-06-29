@@ -2,7 +2,7 @@
 Author: Huynh Xuan Phung </br>
 Email: phunghx <at> gmail <dot> com </br>
 </br>
-Title: Mirror neuron for Real versus Fake emotion recognition </br>
+Title: Mirror neuron for Real versus Fake emotion recognition based on the movement of facial landmarks </br>
 Author: Xuan-Phung Huynh </br>
 HCI Lab, Sejong University, Korea </br>
 * Dependency libraries: 
@@ -13,6 +13,8 @@ HCI Lab, Sejong University, Korea </br>
 4. dlib for python
 5. Xgboost https://github.com/dmlc/xgboost
 6. cunn library for torch
+7. npy4th https://github.com/htwaijry/npy4th
+8. Cuda 8.0
 </br>
 
 * Instructions:
@@ -29,9 +31,9 @@ Notes:
 Training
 1. Download training data from link https://drive.google.com/open?id=0B9dYHyzro_Q_d1hUamJGNndxSGM; extract data to a folder, for example /tmp/data/RealFake_trainset
 2. run training via command : ./training.sh /tmp/data/RealFake_trainset
-
+Note: training data is facial landmark point of training videos
 </br>
-
+Our paper in progression
 
 
 

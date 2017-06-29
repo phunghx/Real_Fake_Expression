@@ -43,7 +43,7 @@ def showFaces(s1,s2,path):
 for facial in facials:
 	#model = pickle.load(open(facial + '/model.dat','rb'))
 	model = xgb.Booster()
-	model.load_model(facial + '/model.dat')
+	model.load_model(facial + '/model2.dat')
 	subjects = os.listdir(facial + '/dataTest')
 	
 	sub = []
@@ -100,11 +100,5 @@ for facial in facials:
 		else:	result[name] = 'fake'
 	'''
 pickle.dump(result, open("test_prediction.pkl","wb"))
-'''
-val = pickle.load(open("validation_labels.pkl","rb"))
-count  = 0
-for k in val:
-	if val[k]==result[k]:	count = count + 1
-print(count/60.0)
-'''
+
 

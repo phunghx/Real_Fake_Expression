@@ -171,9 +171,6 @@ ntree = {'anger':1500,
        'surprise':1200}
 
 
-val_labels = pickle.load(open('../../validation_labels.pkl','rb'))
-
-
 for facial in classesList:
 	#if facial != 'surprise': continue
 	X = []
@@ -204,7 +201,7 @@ for facial in classesList:
 		if (su in test):# and (testing=='test'):
 			X_test.append(x.flatten().tolist())
 			y_test.append(classesName[filename])
-
+	'''
 	objectVals = os.listdir(valPath)
 	for ob in objectVals:
 		obs = ob + '.mp4'
@@ -217,7 +214,7 @@ for facial in classesList:
 			y_val.append(la)
 	X_val = np.array(X_val)
 	y_val = np.array(y_val)
-	
+	'''
 	X = np.array(X)
 	y = np.array(y)
 	subjectIndex = np.array(subjectIndex)
@@ -225,12 +222,12 @@ for facial in classesList:
 	y_test = np.array(y_test)
 	eval_set = [(X_test, y_test)]
 	#xgdmat = xgb.DMatrix(X,y)
-	testdmat = xgb.DMatrix(X_val)
+	#testdmat = xgb.DMatrix(X_val)
 	model = do_train(X,y,subjectIndex,LRs[facial],0.00001)
-	y_pred = model.predict(testdmat)
-	thresh=0.5;y_p = y_pred.copy();y_p[y_p>thresh] = 1;y_p[y_p<=thresh] = 0;accuracy_score(y_p, y_val);
+	#y_pred = model.predict(testdmat)
+	#thresh=0.5;y_p = y_pred.copy();y_p[y_p>thresh] = 1;y_p[y_p<=thresh] = 0;accuracy_score(y_p, y_val);
 	
-	print(facial + ":" + str(accuracy_score(y_p, y_val)))
+	#print(facial + ":" + str(accuracy_score(y_p, y_val)))
 	model.save_model("../../" +facial + "/model2.dat")
 	#import pdb;pdb.set_trace()
 	#model1 = AdaBoostClassifier(n_estimators=1000)

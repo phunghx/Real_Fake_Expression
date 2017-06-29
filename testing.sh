@@ -1,6 +1,3 @@
-cd preprocessing
-python face_box_v2.py
-python face_box_test_dlib_shape.py
-cd ..
-th test.lua
-python predict.py
+th test_v2.lua -datasave dataTest -datainput data/shapeTest
+python findFaces.py --image_folder preprocessing/data/testImage --save testPairs.pkl
+python predict_test_66_7_percent.py

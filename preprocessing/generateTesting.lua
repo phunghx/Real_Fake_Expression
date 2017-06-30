@@ -59,7 +59,7 @@ local dataSave = opt.output .. '/'
 
 --local dataPath = '../data/validImage/'
 --local dataSave = './shapeValid/'
-
+makesurePath(dataSave)
 for dir in paths.iterdirs(dataPath) do
 	makesurePath(dataSave .. dir)
 end

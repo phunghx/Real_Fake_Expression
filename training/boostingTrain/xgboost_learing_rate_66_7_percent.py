@@ -20,6 +20,7 @@ import xgboost as xgb
 from sklearn.grid_search import GridSearchCV
 
 from sklearn.cross_validation   import StratifiedKFold
+from sklearn.model_selection import KFold
 
 from sklearn.metrics import log_loss
 from sklearn.metrics import roc_auc_score
@@ -38,7 +39,7 @@ def do_train(X, Y,subjectIndex, initial_eta, min_eta, verbose=True):
     cv_scores    = []
     train_scores = []
     
-    split = StratifiedKFold(subjects, 5, shuffle=True )
+    split = KFold(n_splits=5, shuffle=True ).split(subjects)
     
     fold = 0
     

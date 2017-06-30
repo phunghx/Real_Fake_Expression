@@ -91,7 +91,7 @@ for videofile in videofiles:
 	#for infname in sys.argv[2:]:
 	video_capture = cv2.VideoCapture(videofile)
         filesave = videofile.split('/')[-1][:-4]
-        folderdata = args["save"] +' /' + filesave
+        folderdata = args["save"] +'/' + filesave
 	make_sure_path_exists(folderdata)
 
 	first = True

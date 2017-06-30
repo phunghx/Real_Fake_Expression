@@ -24,7 +24,7 @@ donkeys = Threads(
 	    myLib = ffi.load(paths.cwd() .. '/liblandmark_detector.so')
 	    -- Function prototypes definition
 	    ffi.cdef [[
-		   int faceLandmark(float* keyPoints, const char* folder,const char* shape_detector, bool training);
+		   int faceLandmark(float* keyPoints, const char* folder,const char* shape_detector, bool training,bool vis, int dwx, int dwy);
 	    ]]
          end
       );
@@ -106,7 +106,7 @@ local function sampleData(class,subject)
 	data_full[j-1][1]:copy(shape)
    end 
    --]]
-   myLib.faceLandmark(torch.data(data_full), ffi.string(opt.data .. '/' .. subject .. '/' .. classTrain[class] .. '/*.jpg'),ffi.string("../shape_predictor_68_face_landmarks.dat"),true)
+   myLib.faceLandmark(torch.data(data_full), ffi.string(opt.data .. '/' .. subject .. '/' .. classTrain[class] .. '/*.jpg'),ffi.string("../shape_predictor_68_face_landmarks.dat"),true,false,20,10)
    return sampleHookTrain(data_full[{{2,data_full:size(1)}}])
 end
 iterations = 80

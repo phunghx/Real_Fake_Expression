@@ -67,19 +67,19 @@ for facial in facials:
 		subjects.pop(i)
 		subjects.pop(0)
 		name1 = '' + s1 + '.mp4'
-		filenames = os.listdir(facial + '/' + args["image_folder"] + s1)
+		filenames = os.listdir(facial + '/' + args["image_folder"]+ '/' + s1)
 		X = []
 		for filename in filenames:
-			X.append(np.load(facial + '/' + args["image_folder"] + s1 + '/' + filename).flatten().tolist())
+			X.append(np.load(facial + '/' + args["image_folder"]+ '/' + s1 + '/' + filename).flatten().tolist())
 		X = np.array(X)
 		pred_f = model.predict(xgb.DMatrix(X))
 		pred1 = pred_f.mean()
 
 		name2 = '' + s2 + '.mp4'
-		filenames = os.listdir(facial + '/' + args["image_folder"] + s2)
+		filenames = os.listdir(facial + '/' + args["image_folder"]+ '/' + s2)
 		X = []
 		for filename in filenames:
-			X.append(np.load(facial + '/' + args["image_folder"] + s2 + '/' + filename).flatten().tolist())
+			X.append(np.load(facial + '/' + args["image_folder"]+ '/' + s2 + '/' + filename).flatten().tolist())
 		X = np.array(X)
 		pred_f = model.predict(xgb.DMatrix(X))
 		pred2 = pred_f.mean()

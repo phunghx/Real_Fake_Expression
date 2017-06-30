@@ -178,8 +178,8 @@ for facial in classesList:
 	X_test = []
 	y_test = []
 	trainPath = '../results_' + facial + '/'
-
-	valPath = '../../' + facial + '/dataVal'
+    
+	#valPath = '../../' + facial + '/dataVal'
 	classes = classesList[facial] #['N2A.npy','H2N2A.npy']
 	classesName = {}
 	classesName[classes[0]] = 0

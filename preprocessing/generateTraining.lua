@@ -74,7 +74,7 @@ opt = cmd:parse(arg or {})
 --local dataPath = './data/Train_v1/'
 --local dataSave = './shape/'
 local dataPath = opt.input
-local dataSave = out.output
+local dataSave = opt.output
 for subject=1,40 do
 	makesurePath(dataSave .. subject)
 	for k,v in pairs(classes) do

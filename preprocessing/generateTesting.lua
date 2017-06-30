@@ -54,8 +54,8 @@ cmd:option('-input', '/data/Train', 'path of face region inputs')
 cmd:option('-output', '/data/shape', 'path of saving landmark')
 opt = cmd:parse(arg or {})
 
-local dataPath = opt.input
-local dataSave = out.output
+local dataPath = opt.input .. '/'
+local dataSave = opt.output .. '/'
 
 --local dataPath = '../data/validImage/'
 --local dataSave = './shapeValid/'

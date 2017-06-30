@@ -71,7 +71,7 @@ int faceLandmark(float* keyPoints, const char* folder,const char* shape_detector
     float *temp_Keypoint;
     temp_Keypoint = keyPoints;
     int point_size = 68*2;
-    dlib::image_window win;
+    //dlib::image_window win;
     
     
     int dx1,dy1,dx2,dy2;
@@ -88,6 +88,7 @@ int faceLandmark(float* keyPoints, const char* folder,const char* shape_detector
         dlib::load_image(img, glob_result.gl_pathv[i]);
 	dlib::rectangle det = dlib::rectangle(0+dx1,0+dy1,img.nc()-dx2,img.nr()-dy2);
 	dlib::full_object_detection shape = sp(img, det);
+	/*
 	if (vis)	{
 	
 		std::vector<dlib::full_object_detection> shapes;
@@ -99,6 +100,7 @@ int faceLandmark(float* keyPoints, const char* folder,const char* shape_detector
 		win.add_overlay(dets, dlib::rgb_pixel(255,0,0));
         	win.add_overlay(render_face_detections(shapes));
 	}
+	*/
         for (unsigned long j = 0; j < shape.num_parts(); ++j)
         {
             keyPoints[i*point_size + j] = (float)1.0* shape.part(j)(0)/(img.nc()-dx1-dx2) ;

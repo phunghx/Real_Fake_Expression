@@ -13,6 +13,17 @@ result = {}
 
 pairsImage = pickle.load(open('testPairs.pkl','rb'))
 
+
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image_folder", required=True,
+	help="path to image folder")
+ap.add_argument("-s", "--save",  required=True,
+	help="save pair of images to file")
+args = vars(ap.parse_args())
+
+
 def majority(pred):
 	pred = pred.mean()
 	if pred > 0.5: return 1
@@ -44,7 +55,7 @@ for facial in facials:
 	#model = pickle.load(open(facial + '/model.dat','rb'))
 	model = xgb.Booster()
 	model.load_model(facial + '/model2.dat')
-	subjects = os.listdir(facial + '/dataTest')
+	subjects = os.listdir(facial + '/' + args["image_folder"])
 	
 	sub = []
 	while(len(subjects) > 0):
@@ -56,19 +67,19 @@ for facial in facials:
 		subjects.pop(i)
 		subjects.pop(0)
 		name1 = '' + s1 + '.mp4'
-		filenames = os.listdir(facial + '/dataTest/' + s1)
+		filenames = os.listdir(facial + '/' + args["image_folder"] + s1)
 		X = []
 		for filename in filenames:
-			X.append(np.load(facial + '/dataTest/'+ s1 + '/' + filename).flatten().tolist())
+			X.append(np.load(facial + '/' + args["image_folder"] + s1 + '/' + filename).flatten().tolist())
 		X = np.array(X)
 		pred_f = model.predict(xgb.DMatrix(X))
 		pred1 = pred_f.mean()
 
 		name2 = '' + s2 + '.mp4'
-		filenames = os.listdir(facial + '/dataTest/' + s2)
+		filenames = os.listdir(facial + '/' + args["image_folder"] + s2)
 		X = []
 		for filename in filenames:
-			X.append(np.load(facial + '/dataTest/'+ s2 + '/' + filename).flatten().tolist())
+			X.append(np.load(facial + '/' + args["image_folder"] + s2 + '/' + filename).flatten().tolist())
 		X = np.array(X)
 		pred_f = model.predict(xgb.DMatrix(X))
 		pred2 = pred_f.mean()
@@ -99,6 +110,6 @@ for facial in facials:
 		if pred == 0: result[name] = 'true'
 		else:	result[name] = 'fake'
 	'''
-pickle.dump(result, open("test_prediction.pkl","wb"))
+pickle.dump(result, open(args["save"],"wb"))
 
 

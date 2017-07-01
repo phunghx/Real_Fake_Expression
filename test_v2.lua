@@ -214,7 +214,7 @@ for k, facial in pairs(FacialExpression) do
 	for dir in paths.iterdirs(dataFolder) do
 		Express = dir:split('_')[2]
 		if Express == folder_files[facial] then
-		  for jnum=1,20 do
+		  for jnum=1,100 do
 		    inputs = getSubjectTest(dataFolder .. '/' .. dir,jnum)
 		    getPBVector(model, module_PB,init_state_model, inputs, facial, dir,jnum)
 		  end

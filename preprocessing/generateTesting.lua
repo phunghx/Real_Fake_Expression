@@ -63,7 +63,7 @@ makesurePath(dataSave)
 for dir in paths.iterdirs(dataPath) do
 	makesurePath(dataSave .. dir)
 end
-for epoch=1,20 do
+for epoch=1,100 do
 for dir in paths.iterdirs(dataPath) do
       donkeys:addjob(
         function()

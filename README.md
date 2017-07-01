@@ -45,7 +45,7 @@ HCI Lab, Sejong University, Korea </br>
 	- clear data ./cleardata.sh
 	- download testImage.zip and extract to REALFAKE/data (REALFAKE/data/testImage)
 	- download shapeTest.zip and extract to REALFAKE/data (REALFAKE/data/shapeTest)
-	- run ./testing.sh REALFAKE/data/shapeTest REALFAKE/data/testImage
+	- run ./testing_data.sh REALFAKE/data/shapeTest REALFAKE/data/testImage
 	- Final result is the file test_prediction.pkl in REALFAKE folder
 	- If you want to see the result on the validation set, please download the validImage.zip and shapeValid.zip
 

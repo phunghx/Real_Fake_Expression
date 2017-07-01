@@ -35,7 +35,8 @@ HCI Lab, Sejong University, Korea </br>
 	- python 2.7
 	- opencv 2.4.9 for python
 	- xgboost : sudo pip install xgboost
-	- sklean
+	- sklean: sudp pip install sklearn --upgrade
+	- scikit-image: sudo pip install scikit-image --upgrade
 	- libjpeg: sudo apt-get install libjpeg-dev
 	- build dlib. From REALFAKE folder, run ./buildLibs.sh &lt;torch installed folder &gt;. For example, I install my torch at /libs/torch then I run ./buildLibs.sh /libs/torch/install
 

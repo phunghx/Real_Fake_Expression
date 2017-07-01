@@ -2,7 +2,7 @@
 Author: Huynh Xuan Phung </br>
 Email: phunghx 	&lt;at&gt; gmail &lt;dot&gt; com </br>
 </br>
-Title: Mirror neuron for Real versus Fake emotion recognition based on the movement of facial landmarks </br>
+Title: A LSTM network with Parametric Bias and its Application to Real versus Fake Emotion Recognition </br>
 Author: Xuan-Phung Huynh </br>
 HCI Lab, Sejong University, Korea </br>
 
@@ -41,6 +41,7 @@ HCI Lab, Sejong University, Korea </br>
 
 4. Replicate our results on the challenge website
 	- delete all folders and files in REALFAKE/data
+	- clear data ./cleardata.sh
 	- download testImage.zip and extract to REALFAKE/data (REALFAKE/data/testImage)
 	- download shapeTest.zip and extract to REALFAKE/data (REALFAKE/data/shapeTest)
 	- run ./testing.sh REALFAKE/data/shapeTest REALFAKE/data/testImage

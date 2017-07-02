@@ -31,6 +31,7 @@ HCI Lab, Sejong University, Korea </br>
 
 3. Build and install dependence libraris:
 	- cuda 8.0
+	- g++ 5.4
 	- torch 7.1
 	- python 2.7
 	- opencv 2.4.9 for python

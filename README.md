@@ -71,7 +71,7 @@ Notes:
 =======================================================
 </br>
 
-Our paper in progression
+Please read our paper: <a href="https://github.com/phunghx/resume/blob/gh-pages/pdfs/04.pdf">Discrimination between genuine versus fake emotion using long-short term memory with parametric bias and facial landmarks</a>
 </br>
 
 
